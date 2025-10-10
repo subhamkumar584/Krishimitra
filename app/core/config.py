@@ -22,7 +22,7 @@ class Settings:
 
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL",
-        "postgresql+psycopg2://postgres:postgres@localhost:5432/krishimitra",
+        "mysql+pymysql://root:password@localhost:3306/krishimitra",
     )
     AUTO_CREATE_TABLES: bool = get_bool("AUTO_CREATE_TABLES", True)
 

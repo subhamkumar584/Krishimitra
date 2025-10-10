@@ -11,8 +11,12 @@ Quickstart
     pip install -r requirements.txt
 - Copy env template and fill values:
     copy .env.example .env
-  - Set DATABASE_URL (PostgreSQL), GEMINI_API_KEY, OPENWEATHER_API_KEY
+  - Set DATABASE_URL (MySQL), GEMINI_API_KEY, OPENWEATHER_API_KEY
   - Add Razorpay keys later when available (RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, RAZORPAY_WEBHOOK_SECRET)
+- MySQL DSN example:
+    mysql+pymysql://root:YOUR_PASSWORD@localhost:3306/krishimitra
+- Quick local run without MySQL (dev only):
+    set DATABASE_URL=sqlite:///./dev.db (PowerShell: $env:DATABASE_URL="sqlite:///./dev.db")
 - Run the server:
     uvicorn app.main:app --host 0.0.0.0 --port 8000
 
