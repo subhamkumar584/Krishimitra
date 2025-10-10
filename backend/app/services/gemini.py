@@ -1,6 +1,6 @@
 import json
 from typing import Any, Dict, List
-from .config import settings
+from ..config import settings
 
 try:
     import google.generativeai as genai
