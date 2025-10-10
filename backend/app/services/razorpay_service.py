@@ -1,11 +1,10 @@
-import json
 import hmac
 import hashlib
 from typing import Any, Dict, Optional
 
 import razorpay  # type: ignore
 
-from app.core.config import settings
+from ..config import settings
 
 
 class RazorpayService:
@@ -35,5 +34,4 @@ class RazorpayService:
         if not secret:
             return False
         expected = hmac.new(bytes(secret, 'utf-8'), body, hashlib.sha256).hexdigest()
-        # Use hmac compare to avoid timing attacks
         return hmac.compare_digest(expected, signature)

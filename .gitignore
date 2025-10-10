@@ -1,66 +1,28 @@
-# Byte-compiled / optimized / DLL files
+# Monorepo for KrishiMitra
+
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-
-# C extensions
 *.pyd
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdists/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-pip-wheel-metadata/
-
-# Unit test / coverage reports
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-htmlcov/
-.pytest_cache/
-.mypy_cache/
-
-# Environments
-.env
-.env.*
-.venv
+.venv/
 venv/
 ENV/
 
-# IDEs and editors
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Node (if frontend later)
+# Node
 node_modules/
+.next/
+.next-cache/
 
-# SQLAlchemy/Alembic (migrations binaries, if any builds)
-alembic.ini.bak
+# Env files
+.env
+.env.*
+backend/.env
+frontend/.env.local
 
 # Logs
-logs/
 *.log
+logs/
 
-# Local data
-*.sqlite3
-*.db
+# OS
+.DS_Store
+Thumbs.db

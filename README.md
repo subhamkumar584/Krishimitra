@@ -1,36 +1,47 @@
-# KrishiMitra Backend (FastAPI)
+# KrishiMitra Monorepo
 
-A modular FastAPI backend for farmer-focused services: marketplace, multilingual chatbot (Gemini), advisory (weather/market), AI recommendations, crop tracker, and Razorpay payments.
+Structure
+- backend/ – Flask REST API (MySQL + SQLAlchemy), Gemini and OpenWeather integrations, Razorpay server endpoints
+- frontend/ – Next.js + React UI with Razorpay Checkout integration
 
-Quickstart
-- Create and activate a virtual environment
-  - Windows (PowerShell):
+Security note
+- Do NOT hardcode API keys or passwords in code. Put them in environment variables.
+- Fill backend/.env (server-only) and frontend/.env.local (client-safe values only)
+
+Quickstart (backend)
+- Create virtual env (PowerShell):
     python -m venv .venv
     .venv\Scripts\Activate.ps1
-- Install dependencies:
-    pip install -r requirements.txt
-- Copy env template and fill values:
-    copy .env.example .env
-  - Set DATABASE_URL (MySQL), GEMINI_API_KEY, OPENWEATHER_API_KEY
-  - Add Razorpay keys later when available (RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, RAZORPAY_WEBHOOK_SECRET)
-- MySQL DSN example:
-    mysql+pymysql://root:YOUR_PASSWORD@localhost:3306/krishimitra
-- Quick local run without MySQL (dev only):
-    set DATABASE_URL=sqlite:///./dev.db (PowerShell: $env:DATABASE_URL="sqlite:///./dev.db")
-- Run the server:
-    uvicorn app.main:app --host 0.0.0.0 --port 8000
+- Install deps:
+    pip install -r backend/requirements.txt
+- Copy env template and set values:
+    copy backend\.env.example backend\.env
+  Required env vars in backend/.env:
+    FLASK_ENV=development
+    DATABASE_URL=mysql+pymysql://root:YOUR_DB_PASSWORD@localhost:3306/krishimitra
+    GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+    GEMINI_MODEL=gemini-1.5-flash
+    OPENWEATHER_API_KEY=YOUR_OPENWEATHER_KEY
+    RAZORPAY_KEY_ID=YOUR_PUBLIC_KEY_ID
+    RAZORPAY_KEY_SECRET=YOUR_SECRET
+    RAZORPAY_WEBHOOK_SECRET=YOUR_WEBHOOK_SECRET
+- Run dev server:
+    set FLASK_APP=backend/wsgi.py  (PowerShell: $env:FLASK_APP="backend/wsgi.py")
+    flask run --host 0.0.0.0 --port 8000
 
-API highlights
-- GET /health – health check
-- POST /api/v1/ai/recommend/soil – soil-based crop & fertilizer recommendations
-- POST /api/v1/payments/create-order – create Razorpay order (INR)
-- POST /api/v1/payments/webhook – Razorpay webhook receiver
+Quickstart (frontend)
+- Requires Node 18+ and pnpm or npm
+- cd frontend
+- Install deps: pnpm install (or npm install)
+- Copy env template and set values:
+    copy .env.local.example .env.local
+  Frontend env (safe for client):
+    NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+    NEXT_PUBLIC_RAZORPAY_KEY_ID=YOUR_PUBLIC_KEY_ID
+- Start UI: pnpm dev (or npm run dev)
 
-Deployment (Render)
-- Web Service: start command uvicorn app.main:app --host 0.0.0.0 --port $PORT
-- Environment variables: DATABASE_URL, GEMINI_API_KEY, OPENWEATHER_API_KEY, RAZORPAY_*
-- PostgreSQL: provision a managed instance and point DATABASE_URL to it
-
-Notes
-- Tables are auto-created on startup when AUTO_CREATE_TABLES=true (use Alembic migrations later).
-- Gemini is used for cloud inference; a rules-based fallback is provided when GEMINI_API_KEY is missing.
+Core endpoints
+- GET /health
+- POST /api/v1/ai/recommend/soil
+- POST /api/v1/payments/create-order
+- POST /api/v1/payments/webhook
