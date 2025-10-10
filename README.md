@@ -26,8 +26,9 @@ Quickstart (backend)
     RAZORPAY_KEY_SECRET=YOUR_SECRET
     RAZORPAY_WEBHOOK_SECRET=YOUR_WEBHOOK_SECRET
 - Run dev server:
-    set FLASK_APP=backend/wsgi.py  (PowerShell: $env:FLASK_APP="backend/wsgi.py")
-    flask run --host 0.0.0.0 --port 8000
+    python app.py
+    # Optional: set PORT via env if you want a different port
+    # PowerShell: $env:PORT="8000"
 
 Quickstart (frontend)
 - Requires Node 18+ and pnpm or npm
