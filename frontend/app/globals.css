@@ -1,6 +1,135 @@
-* { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-.container { max-width: 960px; margin: 2rem auto; padding: 1rem; }
-.card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
-input, select, button { padding: 0.5rem; margin: 0.25rem 0; }
-label { display: block; font-weight: 600; margin-top: 0.5rem; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Default (dark) theme - previous palette */
+  --background: #0a0f0a; /* deep forest */
+  --foreground: #f5f7f2; /* off-white */
+  --primary: #059669; /* emerald-600 */
+  --primary-foreground: #eafff6;
+  --accent: #f59e0b; /* amber-500 */
+  --muted: #0f172a; /* slate-900 */
+  --card: #0b130b;
+  --border: #1f2937;
+}
+
+/* Light theme */
+
+html, body, :root {
+  height: 100%;
+}
+
+body {
+  @apply bg-[color:var(--background)] text-[color:var(--foreground)] antialiased;
+}
+
+
+.container {
+  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.card {
+  @apply bg-[color:var(--card)] border border-[color:var(--border)] rounded-xl p-6 shadow-sm;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium transition-colors;
+}
+.btn-primary {
+  @apply bg-[color:var(--primary)] text-[color:var(--primary-foreground)] hover:opacity-90;
+}
+.btn-secondary {
+  @apply bg-[color:var(--secondary)] text-[color:var(--foreground)] hover:opacity-90;
+}
+
+input, select, textarea {
+  @apply bg-[color:var(--muted)] text-[color:var(--foreground)] border border-[color:var(--border)] rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)] focus:ring-offset-1 focus:ring-offset-[color:var(--background)] focus:border-transparent;
+}
+
+/* Placeholder color - follow current theme foreground with reduced opacity */
+input::placeholder,
+textarea::placeholder {
+  color: var(--foreground);
+  opacity: 0.6;
+}
+
+
+/* Disabled state */
+input:disabled, select:disabled, textarea:disabled {
+  @apply opacity-60 cursor-not-allowed;
+}
+
+/* Improve appearance in dark mode for date/number picker icons */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.8);
+}
+
+/* Remove number input spinners (optional) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Chrome autofill background fix for light theme */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--foreground);
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: 0 0 0px 1000px var(--muted) inset;
+}
+
+/* Strong overrides for native backgrounds */
+input[type="number"],
+input[type="date"],
+input[type="password"],
+input[type="time"] {
+  background-color: var(--muted) !important;
+  color: var(--foreground) !important;
+}
+/* Tweak inner editable date area */
+input[type="date"]::-webkit-datetime-edit,
+input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field, 
+input[type="time"]::-webkit-datetime-edit, 
+input[type="time"]::-webkit-datetime-edit-fields-wrapper, 
+input[type="time"]::-webkit-datetime-edit-text, 
+input[type="time"]::-webkit-datetime-edit-hour-field, 
+input[type="time"]::-webkit-datetime-edit-minute-field {
+  background-color: transparent;
+  color: var(--foreground);
+}
+
+label { @apply block font-semibold mt-3 mb-1; }
+
+/* Password field specific styling */
+input[type="password"] {
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border) !important;
+}
+
+input[type="password"]:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2) !important;
+}
+
+input[type="password"]::placeholder {
+  color: rgba(245, 247, 242, 0.5) !important;
+}
+
+/* Basic markdown tweaks */
+.markdown table { @apply w-full border-collapse text-sm; }
+.markdown th, .markdown td { @apply border border-[color:var(--border)] px-2 py-1; }
+.markdown blockquote { @apply border-l-4 border-[color:var(--border)] pl-3 italic text-white/80; }

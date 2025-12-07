@@ -33,7 +33,7 @@ export default function RazorpayCheckoutButton({ amountPaise, label }: { amountP
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       amount: order.amount,
       currency: order.currency,
-      name: "KrishiMitra",
+      name: "AgriConnect",
       description: "Demo Payment",
       order_id: order.id,
       handler: function (response: any) {
@@ -48,6 +48,8 @@ export default function RazorpayCheckoutButton({ amountPaise, label }: { amountP
   };
 
   return (
-    <button onClick={handlePay}>{label || "Pay"}</button>
+    <button onClick={handlePay} className="btn btn-primary">
+      {label || "Pay"}
+    </button>
   );
 }

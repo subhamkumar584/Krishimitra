@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from sqlalchemy.orm import Session
 from .schemas import SoilRecommendationRequest
-from .services.gemini import recommend_from_soil
+from .services.gemini_core import recommend_from_soil
 from .db import get_db
 from .models import SoilRecommendationLog
 
